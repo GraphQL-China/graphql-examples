@@ -1,0 +1,109 @@
+scalar Date
+
+interface Node {
+    id: ID!
+}
+
+type PageInfo {
+    hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
+    startCursor: String
+    endCursor: String
+}
+
+type User implements Node {
+    id: ID!
+    name: String!
+    # avatar url
+    avatar: String!
+    posts(after: String, first: Int, before: String, last: Int): PostConnection
+    comments(after: String, first: Int, before: String, last: Int): CommentConnection
+}
+
+type Post implements Node {
+    id: ID!
+    slug: String
+    author: User!
+    title: String!
+    content: String!
+    created: Date!
+    comments(after: String, first: Int, before: String, last: Int): CommentConnection
+}
+
+type PostEdge {
+    node: Post
+    cursor: String!
+}
+
+type PostConnection {
+    pageInfo: PageInfo!
+    edges: [PostEdge]
+}
+
+type Comment implements Node {
+    id: ID!
+    author: User!
+    content: String!
+    created: Date!
+    reply: Comment
+    post: Post!
+}
+
+type CommentEdge {
+    node: Comment
+    cursor: String!
+}
+
+type CommentConnection {
+    pageInfo: PageInfo!
+    edges: [CommentEdge]
+}
+
+type Viewer {
+    user: User
+    posts(after: String, first: Int, before: String, last: Int): PostConnection
+}
+
+input CreateUserInput {
+    name: String!
+    avatar: String
+}
+
+type CreateUserPayload {
+    user: User
+    clientMutationId: String
+}
+
+input CreatePostInput {
+    title: String!
+    content: String!
+    clientMutationId: String
+}
+
+type CreatePostPayload {
+    post: Post
+    clientMutationId: String
+}
+
+input CreateCommentInput {
+    content: String!
+    reply: ID
+    post: ID!
+    clientMutationId: String
+}
+
+type CreateCommentPayload {
+    comment: Comment
+    clientMutationId: String
+}
+
+type Query {
+    viewer: Viewer!
+    node(id: ID!): Node
+}
+
+type Mutation {
+    createUser(input: CreateUserInput!): CreateUserPayload
+    createPost(input: CreatePostInput!): CreatePostPayload
+    createComment(input: CreateCommentInput!): CreateCommentPayload
+}
