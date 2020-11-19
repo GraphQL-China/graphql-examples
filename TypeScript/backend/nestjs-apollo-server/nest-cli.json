@@ -1,0 +1,48 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/backend/src",
+  "monorepo": true,
+  "root": "apps/backend",
+  "compilerOptions": {
+    "webpack": false,
+    "tsConfigPath": "apps/backend/tsconfig.app.json"
+  },
+  "projects": {
+    "common": {
+      "type": "library",
+      "root": "libs/common",
+      "entryFile": "index",
+      "sourceRoot": "libs/common/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/common/tsconfig.lib.json"
+      }
+    },
+    "crm-user": {
+      "type": "library",
+      "root": "libs/crm-user",
+      "entryFile": "index",
+      "sourceRoot": "libs/crm-user/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/crm-user/tsconfig.lib.json"
+      }
+    },
+    "celebrity": {
+      "type": "library",
+      "root": "libs/celebrity",
+      "entryFile": "index",
+      "sourceRoot": "libs/celebrity/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/celebrity/tsconfig.lib.json"
+      }
+    },
+    "core": {
+      "type": "library",
+      "root": "libs/core",
+      "entryFile": "index",
+      "sourceRoot": "libs/core/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/core/tsconfig.lib.json"
+      }
+    }
+  }
+}

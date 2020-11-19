@@ -1,0 +1,141 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type LoginResponseType {
+  accessToken: String!
+  tokenType: String!
+  expiresIn: String!
+}
+
+type PageInfo {
+  startCursor: String
+  endCursor: String
+  hasPreviousPage: Boolean!
+  hasNextPage: Boolean!
+}
+
+type CrmUser {
+  id: ID!
+  name: String!
+  phone: String!
+  email: String!
+  status: Float!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type CrmUserEdge {
+  node: CrmUser!
+  cursor: String!
+}
+
+type CrmUserConnection {
+  pageInfo: PageInfo!
+  edges: [CrmUserEdge!]!
+  nodes: [CrmUser!]!
+}
+
+type Celebrity {
+  id: ID!
+  name: String!
+  chineseName: String!
+  country: String!
+  birthday: String!
+  deathday: String!
+  status: Float!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Query {
+  CrmUser(searchCrmUser: FindCrmUserInput): [CrmUser!]
+  login(password: String!, email: String!): LoginResponseType
+  currentCrmUserInfo: CrmUser!
+  getCrmUserInfoById(id: Float!): CrmUser
+  listUsers(data: ConnectionFilterArgsType!): CrmUserConnection!
+  celebrity(searchCelebrity: FindCelebrityInput): [Celebrity!]
+  getCelebrityById(id: String!): Celebrity!
+}
+
+input FindCrmUserInput {
+  id: Float
+  name: String
+  phone: String
+  status: Float
+  email: String
+}
+
+input ConnectionFilterArgsType {
+  id: Float
+  name: String
+  phone: String
+  status: Float
+  email: String
+  first: Int
+  after: String
+  last: Int
+  before: String
+}
+
+input FindCelebrityInput {
+  id: Float
+  name: String
+  chineseName: String
+  country: String
+  birthday: String
+  deathday: String
+  status: Float
+  email: String
+  page: Float
+  limit: Float
+}
+
+type Mutation {
+  addCrmUser(newCrmUser: NewCrmUserInput!): CrmUser!
+  deleteCrmUser(id: Float!): Boolean!
+  updateCrmUser(data: UpdateCrmUserInput!): CrmUser!
+  addCelebrity(args: NewCelebrityInput!): Celebrity!
+  deleteCelebrity(id: String!): Boolean!
+  updateCelebrity(data: UpdateCelebrityInput!): Boolean!
+}
+
+input NewCrmUserInput {
+  name: String!
+  phone: String!
+  email: String!
+  password: String!
+}
+
+input UpdateCrmUserInput {
+  id: Float
+  name: String
+  phone: String
+  email: String
+  password: String
+  status: Float
+}
+
+input NewCelebrityInput {
+  name: String
+  chineseName: String
+  country: String!
+  birthday: String!
+  deathday: String!
+  status: Float!
+}
+
+input UpdateCelebrityInput {
+  id: Float!
+  name: String!
+  chineseName: String!
+  country: String!
+  birthday: String!
+  deathday: String!
+  status: Float!
+}

@@ -1,0 +1,20 @@
+{
+  "type": "postgres",
+  "host": "127.0.0.1",
+  "port": 5432,
+  "username": "wisdom",
+  "password": "windows10",
+  "database": "wisdom-web",
+  "entities": [
+    "dist/**/*.entity{.ts,.js}"
+  ],
+  "migrationsTableName": "migration",
+  "migrations": [
+    "migration/*.ts"
+  ],
+  "cli": {
+    "migrationsDir": "migration"
+  },
+  "logging": true,
+  "ssl": false
+}
